@@ -8,7 +8,20 @@ import { Flame, Leaf } from "lucide-react";
 
 const categories = ["Entradas", "Principais", "Sobremesas", "Bebidas"];
 
-const menuItems = {
+interface MenuItem {
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  isChefChoice?: boolean;
+  isVegan?: boolean;
+}
+
+interface MenuItems {
+  [key: string]: MenuItem[];
+}
+
+const menuItems: MenuItems = {
   Entradas: [
     {
       name: "Carpaccio de Wagyu A5",
@@ -22,7 +35,6 @@ const menuItems = {
       description: "Vieiras frescas, purê de couve-flor trufado e caviar de limão",
       price: "R$ 156",
       image: "https://images.unsplash.com/photo-1599021456807-ad32e4a3e9cd?q=80&w=2070",
-      isVegan: false,
     },
     {
       name: "Foie Gras Mi-cuit",
@@ -185,7 +197,7 @@ export default function Menu() {
           transition={{ duration: 0.4 }}
           className="grid md:grid-cols-2 gap-6"
         >
-          {menuItems[activeCategory as keyof typeof menuItems].map((item, index) => (
+          {menuItems[activeCategory].map((item, index) => (
             <motion.div
               key={item.name}
               initial={{ opacity: 0, y: 30 }}
